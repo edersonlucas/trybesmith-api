@@ -16,4 +16,9 @@ export default class ProductService {
     if (newProductId) return { ...product, id: newProductId };
     throw new Error('Unable to register new product');
   }
+
+  public async getAllProducts(): Promise<IProduct[]> {
+    const products = await this.model.getAllProducts();
+    return products;
+  }
 }
