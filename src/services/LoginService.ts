@@ -39,6 +39,6 @@ export default class LoginService {
       const token = this.auth.Authentication(payload);
       return token;
     }
-    throw new ErrorGenerator(401, 'Invalid username or password');
+    throw new ErrorGenerator(401, 'Username or password invalid');
   }
 }
