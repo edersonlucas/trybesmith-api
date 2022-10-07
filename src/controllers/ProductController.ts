@@ -11,7 +11,7 @@ export default class ProductController {
   
   public createProduct = async (req: Request<Omit<IProduct, 'Id, orderId'>>, res: Response) => {
     const product = req.body;
-    const newProduct = await this.service.create(product);
+    const newProduct = await this.service.createProduct(product);
     return res.status(201).json(newProduct);
   };
 }
