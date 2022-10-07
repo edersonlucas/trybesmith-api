@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import IProduct from '../interfaces/ProductInterface';
 import ProductService from '../services/ProductService';
 
+require('express-async-errors');
+
 export default class ProductController {
   private service: ProductService;
 

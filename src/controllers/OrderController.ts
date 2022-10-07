@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import IOrder from '../interfaces/OrderInterface';
 import OrderService from '../services/OrderService';
 
+require('express-async-errors');
+
 export default class OrderController {
   private service: OrderService;
 
