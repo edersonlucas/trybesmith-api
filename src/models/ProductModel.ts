@@ -1,4 +1,4 @@
-import { Pool, OkPacket } from 'mysql2/promise';
+import { Pool, OkPacket, RowDataPacket } from 'mysql2/promise';
 import IProduct from '../interfaces/ProductInterface';
 
 export default class ProductModel {
@@ -6,7 +6,7 @@ export default class ProductModel {
     this.connection = connection;
   }
 
-  async createProduct(
+  public async createProduct(
     product: Omit<IProduct, 'id, orderId'>,
   ): Promise<number | null> {
     const [{ insertId }] = await this.connection.execute<OkPacket>(
@@ -17,5 +17,11 @@ export default class ProductModel {
       [product.name, product.amount],
     );
     return insertId;
+  }
+
+  public async getAllProducts(): Promise<IProduct[]> {
+    const [products] = await this.connection.execute<(IProduct & RowDataPacket)[]>(
+      'SELECT * FROM Trybesmith.Products');
+    return products;
   }
 }
