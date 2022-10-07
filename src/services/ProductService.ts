@@ -9,10 +9,10 @@ export default class ProductService {
     this.model = new ProductModel(connection);
   }
 
-  public async create(
+  public async createProduct(
     product: Omit<IProduct, 'id, orderId'>,
   ): Promise<Omit<IProduct, 'orderId'> | Error> {
-    const newProductId = await this.model.create(product);
+    const newProductId = await this.model.createProduct(product);
     if (newProductId) return { ...product, id: newProductId };
     throw new Error('Unable to register new product');
   }
