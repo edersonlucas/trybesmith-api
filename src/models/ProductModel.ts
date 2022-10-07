@@ -6,7 +6,7 @@ export default class ProductModel {
     this.connection = connection;
   }
 
-  async create(
+  async createProduct(
     product: Omit<IProduct, 'id, orderId'>,
   ): Promise<number | null> {
     const [{ insertId }] = await this.connection.execute<OkPacket>(
