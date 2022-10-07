@@ -4,7 +4,7 @@ import { validateCreateProduct } from './validations/validationInputValues';
 
 export default (
   req: Request<Omit<IProduct, 'Id, orderId'>>,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   validateCreateProduct(req.body);

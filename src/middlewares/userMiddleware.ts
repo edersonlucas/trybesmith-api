@@ -4,7 +4,7 @@ import { validateCreateUser } from './validations/validationInputValues';
 
 export default (
   req: Request<Omit<IUser, 'Id'>>,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   validateCreateUser(req.body);
