@@ -1,5 +1,6 @@
 import Jwt from 'jsonwebtoken';
 import IUser from '../interfaces/UserInterface';
+import ErrorGenerator from './ErrorGenerator';
 
 export default class Auth {
   private privateKey: string;
@@ -14,6 +15,11 @@ export default class Auth {
   }
 
   public Authorization(token: string) {
-    Jwt.verify(token, this.privateKey);
+    try {
+      const user = Jwt.verify(token, this.privateKey);
+      return user;
+    } catch (err) {
+      throw new ErrorGenerator(401, 'Invalid token');
+    }
   }
 }
