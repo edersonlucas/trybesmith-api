@@ -1,4 +1,4 @@
-import { Pool, RowDataPacket } from 'mysql2/promise';
+import { OkPacket, Pool, RowDataPacket } from 'mysql2/promise';
 import IOrder from '../interfaces/OrderInterface';
 
 export default class OrderModel {
@@ -13,5 +13,13 @@ export default class OrderModel {
       JOIN Trybesmith.Products as B 
       ON A.id = B.orderId GROUP BY A.id`);
     return orders;
+  }
+
+  public async createOrder(userId: number): Promise<number | undefined> {
+    const [{ insertId }] = await this.connection.execute<OkPacket>(
+      'INSERT INTO Trybesmith.Orders (userId) VALUES (?)',
+      [userId],
+    );
+    return insertId; 
   }
 }
