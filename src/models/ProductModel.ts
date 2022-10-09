@@ -24,4 +24,15 @@ export default class ProductModel {
       'SELECT * FROM Trybesmith.Products');
     return products;
   }
+
+  public async getProductsByIds(productIds: number[]): Promise<IProduct[]> {
+    const quantityIds: string = productIds
+      .reduce((acc: string[], _productId) => [...acc, '?'], []).join(', ');
+    const [product] = await this.connection.execute<(
+    IProduct & RowDataPacket)[]>(
+      `SELECT * FROM Trybesmith.Products WHERE id IN (${quantityIds})`,
+      [...productIds],
+      );
+    return product;
+  }
 }
