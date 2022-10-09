@@ -1,5 +1,5 @@
 import { ValidationError } from 'joi';
-import { createProductSchema, createUserSchema, loginSchema } from './schemas';
+import { createOrderSchema, createProductSchema, createUserSchema, loginSchema } from './schemas';
 import IProduct from '../../interfaces/ProductInterface';
 import ErrorGenerator from '../../utils/ErrorGenerator';
 import IUser from '../../interfaces/UserInterface';
@@ -30,4 +30,10 @@ const validateLogin = (login: ILogin): void => {
   returnError(error);
 };
 
-export { validateCreateProduct, validateCreateUser, validateLogin };
+const validateCreateOrder = (newOrder: { productId: number[] }): void => {
+  const { error } = createOrderSchema
+    .validate(newOrder);
+  returnError(error);
+};
+
+export { validateCreateProduct, validateCreateUser, validateLogin, validateCreateOrder };
