@@ -35,4 +35,12 @@ export default class ProductModel {
       );
     return product;
   }
+
+  public async updateProductById(productId: number, orderId: number) {
+    const [{ changedRows }] = await this.connection.execute<OkPacket>(
+      'UPDATE Trybesmith.Products SET orderId = ? WHERE id = ?',
+      [orderId, productId],
+    );
+    if (changedRows) return productId;
+  }
 }
